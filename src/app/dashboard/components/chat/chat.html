@@ -2,15 +2,26 @@
     <p class="chat__title">Chat</p>
 </header>
 <main>
-    <section class="chat-messages">
+    <section class="chat-message">
         <h2 class="chat-message__title">Ask about this note</h2>
         <button class="chat-message__action">Action</button>
         <button class="chat-message__action">Action</button>
         <button class="chat-message__action">Action</button>
+        <fieldset *ngFor="let message of messages" class="chat-message__text"
+            [ngClass]="'chat-message__text--' + message.user.toLowerCase()">
+            <legend>{{message.user}}</legend>
+            <p>{{message.text}}</p>
+        </fieldset>
     </section>
-    <footer class="chat-footer">
-        <textarea type="text" name="chat input" id="chat input" placeholder="chat input"
-            class="chat-footer__input"></textarea>
+
+    <form class="chat-footer" [formGroup]="form" (submit)="sendMessage()">
+        <fieldset class="chat-footer__field">
+            <legend class="chat-footer__error" *ngIf="massageError">
+                {{massageError}}
+            </legend>
+            <textarea type="text" name="chat input" id="chat input" placeholder="chat input" class="chat-footer__input"
+                [formControl]="chatInput"></textarea>
+        </fieldset>
         <button class="chat-footer__action">Send</button>
-    </footer>
+    </form>
 </main>

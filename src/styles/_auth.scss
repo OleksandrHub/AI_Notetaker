@@ -30,6 +30,12 @@
         &__button {
             width: max(100px, 50%);
         }
+
+        &__error {
+            color: $error-color;
+            text-align: center;
+            font-size: 0.75rem;
+        }
     }
 
     &__register-button,
@@ -44,7 +50,6 @@
 .registration-form__button {
     display: block;
     margin: 20px auto;
-    border: 1px solid $border-color;
     border-radius: 10px;
     padding: 10px;
 }

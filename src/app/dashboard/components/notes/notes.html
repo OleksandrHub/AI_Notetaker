@@ -2,7 +2,8 @@
     <p class="notes__title">Notes</p>
 </header>
 <main>
-    <app-note class="notes__note"></app-note>
-    <app-note class="notes__note"></app-note>
-    <app-note class="notes__note"></app-note>
+    <section class="notes__note" *ngFor="let note of notes">
+        <h2>{{note.title}}</h2>
+        <p>{{note.content}}</p>
+    </section>
 </main>
