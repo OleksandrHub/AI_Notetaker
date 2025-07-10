@@ -32,16 +32,7 @@ export class ChatComponent {
   form = new FormGroup({
     chatInput: this.chatInput
   })
-  messages: TMessage[] = [
-    {
-      user: 'User',
-      text: 'Hello'
-    },
-    {
-      user: 'Bot',
-      text: 'Hi. This text is test message'
-    }
-  ];
+  messages: TMessage[] = [];
 
   // Методи
   sendMessage() {

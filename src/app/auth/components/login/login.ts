@@ -2,12 +2,7 @@ import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-
-type TUser = {
-  login: string;
-  password: string;
-}
-
+import { AuthService } from '../../service/auth-service';
 
 @Component({
   selector: 'app-login',
@@ -16,16 +11,9 @@ type TUser = {
   styleUrl: './login.scss'
 })
 export class LoginComponent {
-  constructor(private router: Router) { }
+  constructor(private router: Router, private authService: AuthService) { }
 
   // Змінні
-  users: TUser[] = [
-    {
-      login: 'admin',
-      password: 'admin123'
-    }
-  ]
-
   errorMessage: string = '';
 
   // Форма входу
@@ -40,8 +28,9 @@ export class LoginComponent {
   sendLogin() {
     this.errorMessage = '';
     if (this.form.valid) {
-      const user = this.users.find((user) => user.login === this.formLogin.value && user.password === this.formPassword.value);
+      const user = this.authService.users.find((user) => user.login === this.formLogin.value && user.password === this.formPassword.value);
       if (user) {
+        this.authService.login(user);
         this.router.navigate(['/dashboard']);
       } else {
         this.errorMessage = 'Invalid login or password';
