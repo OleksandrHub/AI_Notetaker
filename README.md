@@ -3,6 +3,15 @@
 login admin
 password admin123
 
+[майбутніх оновленнях]
+Реєстрація нового користувача
+Покращення входу
+
+Chat, Notes , Untitled Notes - розбиття на менші компоненти
+Chat - додаваня функціоналу
+Notes - ввиведення, видалення та збреження нотаток
+Untitled Notes додавання, редагування нотатки
+
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.5.
 
 ## Development server
