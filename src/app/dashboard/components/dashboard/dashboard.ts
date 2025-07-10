@@ -19,7 +19,7 @@ import { NgIf } from '@angular/common';
 })
 export class DashboardComponent {
   constructor(private router: Router, private authService: AuthService) { }
-  ngOnInit(): boolean {
+  Initalize(): boolean {
     if (!this.authService.userisAuth) {
       this.router.navigate(['/login']);
       return false;

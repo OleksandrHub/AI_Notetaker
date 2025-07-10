@@ -15,7 +15,7 @@ export class RegistationComponent {
 
   errorMessage: string = ''
 
-  formLogin = new FormControl('', Validators.required)
+  formLogin = new FormControl('', Validators.required,)
   formPassword = new FormControl('', [Validators.required, Validators.minLength(6)])
   formRepeatPassword = new FormControl('', [Validators.required, Validators.minLength(6)])
 

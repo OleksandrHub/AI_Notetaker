@@ -13,10 +13,8 @@ import { AuthService } from '../../service/auth-service';
 export class LoginComponent {
   constructor(private router: Router, private authService: AuthService) { }
 
-  // Змінні
   errorMessage: string = '';
 
-  // Форма входу
   formLogin = new FormControl('', Validators.required);
   formPassword = new FormControl('', [Validators.required, Validators.minLength(6)]);
   form = new FormGroup({
@@ -24,7 +22,6 @@ export class LoginComponent {
     formPassword: this.formPassword
   })
 
-  // Функції
   sendLogin() {
     this.errorMessage = '';
     if (this.form.valid) {

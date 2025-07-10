@@ -1,21 +1,16 @@
 import { Injectable } from "@angular/core";
-
-type TUser = {
-    id: number;
-    login: string;
-    password: string;
-}
-
+import { Router } from "@angular/router";
+import { IUser } from "../../../Interface/interface";
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
-    constructor() { }
+    constructor(private router: Router) { }
 
-    userisAuth: TUser | null = null;
+    userisAuth: IUser | null = null;
 
-    users: TUser[] = [
+    users: IUser[] = [
         {
             id: 1,
             login: 'admin',
@@ -23,12 +18,16 @@ export class AuthService {
         }
     ]
 
-
-    login(user: TUser) {
+    login(user: IUser) {
         this.userisAuth = { ...user };
     }
 
-    register(user: TUser) {
+    logout() {
+        this.userisAuth = null;
+        this.router.navigate(['/login']);
+    }
+
+    register(user: IUser) {
         this.users.push(user);
     }
 }
