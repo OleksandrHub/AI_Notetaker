@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
-import { INote } from "../../../Interface/interface.module";;
+import { INote } from "../../../Interface/interface.module"; import { BehaviorSubject } from "rxjs";
+;
 
 @Injectable({
     providedIn: "root",
@@ -13,7 +14,7 @@ export class NoteService {
         content: ''
     };
 
-    notes: INote[] = [
+    private notes = new BehaviorSubject<INote[]>([
         {
             id: 1,
             title: 'Note 1',
@@ -29,13 +30,24 @@ export class NoteService {
             title: 'Note 3',
             content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque laudantium recusandae eaque labore eos eum optio numquam dolor, dolore commodi sit dolores voluptatum magnam sunt repellat! Modi ipsum doloribus saepe.'
         }
-    ];
+    ])
+
+    notes$ = this.notes.asObservable();
 
     saveNote(note: INote) {
-        if (note.id in this.notes) {
-            this.notes[note.id] = note;
+        const temp_notes = this.notes.getValue();
+        if (note.id in temp_notes) {
+            temp_notes[note.id] = note;
+            this.notes.next(temp_notes);
             return;
         }
-        this.notes.push(note);
+        temp_notes.push(note);
+        this.notes.next(temp_notes);
+    }
+
+    deleteNote(id: number) {
+        let temp_notes = this.notes.getValue();
+        temp_notes = temp_notes.filter((note) => note.id !== id);
+        this.notes.next(temp_notes);
     }
 }

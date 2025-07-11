@@ -13,11 +13,21 @@ import { INote } from '../../../../../Interface/interface.module';
 })
 export class NoteComponents {
 
-  @Input() notes: INote[] = [];
+  notes: INote[] = [];
 
   constructor(private noteService: NoteService) { }
 
   ngOnInit() {
-    this.notes = this.noteService.notes;
+    this.noteService.notes$.subscribe((notes) => {
+      this.notes = notes;
+    });
+  }
+
+  deleteNote(id: number) {
+    this.noteService.deleteNote(id);
+  }
+
+  editNote(id: number) {
+    // this.noteService.editNote(id);
   }
 }

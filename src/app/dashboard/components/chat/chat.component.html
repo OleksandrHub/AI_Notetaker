@@ -3,10 +3,12 @@
 </header>
 <main>
     <section class="chat-message">
-        <h2 class="chat-message__title">Ask about this note</h2>
-        <button class="chat-message__action">Action</button>
-        <button class="chat-message__action">Action</button>
-        <button class="chat-message__action">Action</button>
+        <section class="chat-message-header">
+            <h2 class="chat-message__title">Ask about this note</h2>
+            <button class="chat-message__action">Action</button>
+            <button class="chat-message__action">Action</button>
+            <button class="chat-message__action">Action</button>
+        </section>
         <fieldset *ngFor="let message of messages" class="chat-message__text"
             [ngClass]="'chat-message__text--' + message.user.toLowerCase()">
             <legend>{{message.user}}</legend>
