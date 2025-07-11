@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { INote } from "../../../Interface/interface";;
+import { INote } from "../../../Interface/interface.module";;
 
 @Injectable({
     providedIn: "root",

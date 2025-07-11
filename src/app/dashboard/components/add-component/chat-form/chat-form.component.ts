@@ -9,8 +9,8 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
     FormsModule,
     ReactiveFormsModule
   ],
-  templateUrl: './chat-form.html',
-  styleUrl: './chat-form.scss'
+  templateUrl: './chat-form.component.html',
+  styleUrl: './chat-form.component.scss'
 })
 export class ChatFormComponent {
   @Output() messageSent = new EventEmitter<string>();

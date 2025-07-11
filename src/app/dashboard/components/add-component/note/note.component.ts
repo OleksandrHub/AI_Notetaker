@@ -1,15 +1,15 @@
 import { NgFor } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { NoteService } from '../../../services/note-service';
-import { INote } from '../../../../../Interface/interface';
+import { NoteService } from '../../../services/note.service';
+import { INote } from '../../../../../Interface/interface.module';
 
 @Component({
   selector: 'app-note',
   imports: [
     NgFor,
   ],
-  templateUrl: './note.html',
-  styleUrl: './note.scss'
+  templateUrl: './note.component.html',
+  styleUrl: './note.component.scss'
 })
 export class NoteComponents {
 

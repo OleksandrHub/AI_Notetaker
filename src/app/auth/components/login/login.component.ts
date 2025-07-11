@@ -2,13 +2,13 @@ import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { AuthService } from '../../service/auth-service';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-login',
   imports: [RouterLink, FormsModule, ReactiveFormsModule, NgIf],
-  templateUrl: './login.html',
-  styleUrl: './login.scss'
+  templateUrl: './login.component.html',
+  styleUrl: './login.component.scss'
 })
 export class LoginComponent {
   constructor(private router: Router, private authService: AuthService) { }

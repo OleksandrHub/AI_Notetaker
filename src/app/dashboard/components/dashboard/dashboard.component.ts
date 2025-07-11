@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { ChatComponent } from '../chat/chat';
-import { NotesComponents } from '../notes/notes';
-import { UntitledNotesComponent } from '../untitled-notes/untitled-notes';
-import { AuthService } from '../../../auth/service/auth-service';
+import { ChatComponent } from '../chat/chat.component';
+import { NotesComponents } from '../notes/notes.component';
+import { UntitledNotesComponent } from '../untitled-notes/untitled-notes.component';
+import { AuthService } from '../../../auth/service/auth.service';
 import { Router } from '@angular/router';
 import { NgIf } from '@angular/common';
 
@@ -14,8 +14,8 @@ import { NgIf } from '@angular/common';
     UntitledNotesComponent,
     NgIf,
   ],
-  templateUrl: './dashboard.html',
-  styleUrl: './dashboard.scss'
+  templateUrl: './dashboard.component.html',
+  styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent {
   constructor(private router: Router, private authService: AuthService) { }
