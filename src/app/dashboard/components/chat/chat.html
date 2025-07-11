@@ -1,6 +1,5 @@
 <header>
     <p class="chat__title">Chat</p>
-
 </header>
 <main>
     <section class="chat-message">
@@ -11,7 +10,7 @@
         <fieldset *ngFor="let message of messages" class="chat-message__text"
             [ngClass]="'chat-message__text--' + message.user.toLowerCase()">
             <legend>{{message.user}}</legend>
-            <p>{{message.text}}</p>
+            <pre>{{message.text}}</pre>
         </fieldset>
     </section>
 

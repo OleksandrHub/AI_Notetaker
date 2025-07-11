@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { OpenAiService } from '../../services/onpenai-service';
 import { IMessage } from '../../../../Interface/interface';
+import { GroqService } from '../../services/groq-service';
 
 @Component({
   selector: 'app-chat',
@@ -17,10 +18,10 @@ import { IMessage } from '../../../../Interface/interface';
   styleUrl: './chat.scss'
 })
 export class ChatComponent {
-  constructor(private openAiService: OpenAiService) {
+  constructor(private openAiService: OpenAiService, private groqService: GroqService) {
 
   }
-  // Змінні
+
   chatInput = new FormControl('', Validators.required);
   massageError: string = '';
 
@@ -29,7 +30,6 @@ export class ChatComponent {
   })
   messages: IMessage[] = [];
 
-  // Методи
   sendMessage() {
     this.massageError = '';
     if (this.form.valid && this.chatInput.value?.trim()) {
@@ -38,7 +38,7 @@ export class ChatComponent {
         text: this.chatInput.value
       });
 
-      this.openAiService.summarize(this.chatInput.value).subscribe({
+      this.groqService.summarize(this.chatInput.value).subscribe({
         next: res => {
           this.messages.push({
             user: 'Bot',
