@@ -3,14 +3,18 @@
 </header>
 <main>
     <p class="untitled-notes__text" *ngIf="note.id === 0">Add your notes</p>
-    <section class="untitled-notes__notes" *ngIf="note.id !== 0">
-        <!-- <button class="untitled-notes__button" (click)="closeNote()">Add note</button> -->
-        <label for="title">Title</label>
+    <form class="untitled-notes__notes" *ngIf="note.id !== 0">
+        <button class="untitled-notes__button--close" (click)="closeNote()">✘</button>
+
+        <label for="title" class="untitled-notes__label">Title</label>
         <input type="text" name="title" id="title" placeholder="Title" class="untitled-notes__input"
             value="{{note.title}}">
-        <label for="content">Content</label>
+
+        <label for="content" class="untitled-notes__label">Content</label>
         <textarea name="content" id="content" placeholder="Content"
-            class="untitled-notes__input">{{note.content}}</textarea>
-        <!-- <button class="untitled-notes__button" (click)="saveNote()">Save note</button> -->
-    </section>
+            class="untitled-notes__input untitled-notes__input--textarea">{{note.content}}</textarea>
+
+        <button class="untitled-notes__button--save" (click)="saveNote()">Save note</button>
+
+    </form>
 </main>

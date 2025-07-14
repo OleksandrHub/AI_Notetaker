@@ -12,9 +12,13 @@ import { NoteService } from '../../services/note.service';
 export class UntitledNotesComponent {
   constructor(private noteService: NoteService) { }
 
-  @Input() note: INote = {
+  note: INote = {
     id: 0,
     title: '',
     content: ''
   };
+
+  saveNote() { }
+
+  closeNote() { }
 }

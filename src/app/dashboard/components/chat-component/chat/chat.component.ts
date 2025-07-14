@@ -1,9 +1,9 @@
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { OpenAiService } from '../../services/onpenai.service';
-import { IMessage } from '../../../../Interface/interface.module';
-import { GroqService } from '../../services/groq.service';
+import { OpenAiService } from '../../../services/onpenai.service';
+import { IMessage } from '../../../../../Interface/interface.module';
+import { GroqService } from '../../../services/groq.service';
 
 @Component({
   selector: 'app-chat',
@@ -23,15 +23,24 @@ export class ChatComponent {
   }
 
   chatInput = new FormControl('', Validators.required);
-  massageError: string = '';
+  messageError: string = '';
 
   form = new FormGroup({
     chatInput: this.chatInput
   })
-  messages: IMessage[] = [];
+  messages: IMessage[] = [
+    {
+      user: 'User',
+      text: 'Hello'
+    },
+    {
+      user: 'Bot',
+      text: 'Hello! How can I help you?'
+    }
+  ];
 
   sendMessage() {
-    this.massageError = '';
+    this.messageError = '';
     if (this.form.valid && this.chatInput.value?.trim()) {
       this.messages.push({
         user: 'User',
@@ -56,7 +65,7 @@ export class ChatComponent {
       this.form.reset();
     } else {
       if (this.chatInput.hasError('required') || this.chatInput.value?.trim() === '') {
-        this.massageError = '*Message is required';
+        this.messageError = '*Message is required';
       }
     }
   }

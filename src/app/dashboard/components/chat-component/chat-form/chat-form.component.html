@@ -1,11 +1,10 @@
-<form class="chat-footer" [formGroup]="form" (submit)="sendMessage()">
+<!-- <form class="chat-footer" [formGroup]="form" (submit)="sendMessage()">
     <fieldset class="chat-footer__field">
-        <legend class="chat-footer__error"
-            *ngIf="chatInput.hasError('required') && (chatInput.touched || chatInput.dirty) && chatInput.invalid">
-            *Це поле обов'язкове
+        <legend class="chat-footer__error" *ngIf="messageError">
+            {{messageError}}
         </legend>
         <textarea type="text" name="chat input" id="chat input" placeholder="chat input" class="chat-footer__input"
             [formControl]="chatInput"></textarea>
     </fieldset>
     <button class="chat-footer__action">Send</button>
-</form>
+</form> -->

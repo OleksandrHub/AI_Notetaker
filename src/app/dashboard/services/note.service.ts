@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
-import { INote } from "../../../Interface/interface.module"; import { BehaviorSubject } from "rxjs";
-;
+import { INote } from "../../../Interface/interface.module";
+import { BehaviorSubject } from "rxjs";
 
 @Injectable({
     providedIn: "root",
