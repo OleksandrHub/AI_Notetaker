@@ -10,7 +10,7 @@
             <button class="chat-message__action">Action</button>
         </section>
         <fieldset *ngFor="let message of messages" class="chat-message__text"
-            [ngClass]="'chat-message__text--' + message.user.toLowerCase()">
+            [ngClass]="'chat-message__text--' + message.user.toLowerCase()" (click)="selectMessage(message)">
             <legend>{{message.user}}</legend>
             <pre>{{message.text}}</pre>
         </fieldset>

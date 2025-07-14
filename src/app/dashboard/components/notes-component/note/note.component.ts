@@ -28,6 +28,6 @@ export class NoteComponents {
   }
 
   editNote(id: number) {
-    // this.noteService.editNote(id);
+    this.noteService.editNote(id);
   }
 }

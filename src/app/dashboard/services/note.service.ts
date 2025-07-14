@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { INote } from "../../../Interface/interface.module";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, max } from "rxjs";
 
 @Injectable({
     providedIn: "root",
@@ -31,23 +31,40 @@ export class NoteService {
             content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque laudantium recusandae eaque labore eos eum optio numquam dolor, dolore commodi sit dolores voluptatum magnam sunt repellat! Modi ipsum doloribus saepe.'
         }
     ])
-
     notes$ = this.notes.asObservable();
+
+    editNoteObj = new BehaviorSubject<INote>(this.note);
+    editNote$ = this.editNoteObj.asObservable();
 
     saveNote(note: INote) {
         const temp_notes = this.notes.getValue();
-        if (note.id in temp_notes) {
-            temp_notes[note.id] = note;
-            this.notes.next(temp_notes);
-            return;
+        if (note.id === -1) {
+            note.id = Math.max(0, ...temp_notes.map((n) => n.id)) + 1;
+            const newNotes = [...temp_notes, note];
+            this.notes.next(newNotes);
+        } else {
+            const index = temp_notes.findIndex(n => n.id === note.id);
+            if (index !== -1) {
+                const updatedNotes = [...temp_notes];
+                updatedNotes[index] = note;
+                this.notes.next(updatedNotes);
+            }
         }
-        temp_notes.push(note);
-        this.notes.next(temp_notes);
     }
 
     deleteNote(id: number) {
         let temp_notes = this.notes.getValue();
         temp_notes = temp_notes.filter((note) => note.id !== id);
         this.notes.next(temp_notes);
+    }
+
+    editNote(id: number) {
+        const temp_notes = this.notes.getValue();
+        this.note = temp_notes.filter((note) => note.id === id)[0];
+        this.editNoteObj.next(this.note);
+    }
+
+    newNote(note: INote) {
+        this.editNoteObj.next(note);
     }
 }

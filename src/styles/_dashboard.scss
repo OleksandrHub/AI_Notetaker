@@ -85,8 +85,14 @@
     }
 
     &__input--textarea {
-        height: 30%;
+        height: 40%;
         resize: none;
+    }
+
+    &__error {
+        color: red;
+        font-size: 0.75rem;
+        text-align: center;
     }
 
 }

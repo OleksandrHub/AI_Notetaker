@@ -1,9 +1,10 @@
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { OpenAiService } from '../../../services/onpenai.service';
-import { IMessage } from '../../../../../Interface/interface.module';
-import { GroqService } from '../../../services/groq.service';
+import { OpenAiService } from '../../services/onpenai.service';
+import { IMessage } from '../../../../Interface/interface.module';
+import { GroqService } from '../../services/groq.service';
+import { NoteService } from '../../services/note.service';
 
 @Component({
   selector: 'app-chat',
@@ -18,7 +19,7 @@ import { GroqService } from '../../../services/groq.service';
   styleUrl: './chat.component.scss'
 })
 export class ChatComponent {
-  constructor(private openAiService: OpenAiService, private groqService: GroqService) {
+  constructor(private openAiService: OpenAiService, private groqService: GroqService, private NoteService: NoteService,) {
 
   }
 
@@ -67,6 +68,16 @@ export class ChatComponent {
       if (this.chatInput.hasError('required') || this.chatInput.value?.trim() === '') {
         this.messageError = '*Message is required';
       }
+    }
+  }
+
+  selectMessage(message: IMessage) {
+    if (message.user === 'Bot') {
+      this.NoteService.newNote({
+        id: -1,
+        title: '',
+        content: message.text
+      });
     }
   }
 }
