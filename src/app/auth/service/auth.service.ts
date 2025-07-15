@@ -6,17 +6,20 @@ import { IUser } from "../../../Interface/interface.module";
     providedIn: 'root'
 })
 export class AuthService {
-    constructor(private router: Router) { }
-
     userisAuth: IUser | null = null;
 
-    users: IUser[] = [
-        {
-            id: 1,
-            login: 'admin',
-            password: 'admin123'
+    users: IUser[] = []
+
+    constructor(private router: Router) {
+        this.loadUsersFromLocalStorage();
+        if (this.users.length === 0) { // Потім видалити
+            this.users.push({
+                id: 1,
+                login: 'admin',
+                password: 'admin123'
+            });
         }
-    ]
+    }
 
     login(user: IUser) {
         this.userisAuth = { ...user };
@@ -29,5 +32,19 @@ export class AuthService {
 
     register(user: IUser) {
         this.users.push(user);
+        this.saveUsersToLocalStorage();
+    }
+
+    private saveUsersToLocalStorage() {
+        localStorage.setItem('users', JSON.stringify(this.users));
+    }
+
+    private loadUsersFromLocalStorage() {
+        const users = localStorage.getItem('users');
+        if (users) {
+            this.users = JSON.parse(users);
+        } else {
+            this.saveUsersToLocalStorage();
+        }
     }
 }

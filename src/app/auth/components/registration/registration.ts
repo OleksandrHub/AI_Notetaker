@@ -35,13 +35,13 @@ export class RegistationComponent {
         }
 
         const user = {
-          id: this.authService.users.length + 1,
+          id: Math.max(0, ...this.authService.users.map(u => u.id)) + 1,
           login: this.formLogin.value || '',
           password: this.formPassword.value || ''
         }
         this.authService.register(user);
         this.authService.login(user);
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/login']); // Змінити на '/dashboard' якщо потрібно перенаправлення на головну сторінку
 
       } else {
         this.errorMessage = 'Passwords do not match'

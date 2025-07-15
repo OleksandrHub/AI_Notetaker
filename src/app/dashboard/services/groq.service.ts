@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
-import { Environment } from "../../environment";
+import { Environment } from "../../../../environment";
 
 @Injectable({ providedIn: 'root' })
 export class GroqService {

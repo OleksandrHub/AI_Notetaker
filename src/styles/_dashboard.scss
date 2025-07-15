@@ -27,9 +27,19 @@
         font-size: clamp(0.625rem, 0.4688rem + 0.5vw, 0.75rem);
     }
 
-    &__note p,
-    &__note h2 {
+    &__summary {
+        font-size: 1.25rem;
+        font-weight: bold;
+        cursor: pointer;
         margin-bottom: 10px;
+    }
+
+    &__text {
+        padding: 10px;
+        margin: 10px 0;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        white-space: pre-wrap;
     }
 
     &__button {

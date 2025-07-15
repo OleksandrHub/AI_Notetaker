@@ -6,15 +6,13 @@ import { BehaviorSubject, max } from "rxjs";
     providedIn: "root",
 })
 export class NoteService {
-    constructor() { }
-
     note: INote = {
         id: 0,
         title: '',
         content: ''
     };
 
-    private notes = new BehaviorSubject<INote[]>([
+    private defaultNote: INote[] = [
         {
             id: 1,
             title: 'Note 1',
@@ -30,11 +28,20 @@ export class NoteService {
             title: 'Note 3',
             content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque laudantium recusandae eaque labore eos eum optio numquam dolor, dolore commodi sit dolores voluptatum magnam sunt repellat! Modi ipsum doloribus saepe.'
         }
-    ])
+    ];
+
+    private notes = new BehaviorSubject<INote[]>([])
     notes$ = this.notes.asObservable();
 
     editNoteObj = new BehaviorSubject<INote>(this.note);
     editNote$ = this.editNoteObj.asObservable();
+
+    constructor() {
+        this.loadNotesFromLocalStorage();
+        if (this.notes.getValue().length === 0) { // Потім видалити
+            this.notes.next(this.defaultNote);
+        }
+    }
 
     saveNote(note: INote) {
         const temp_notes = this.notes.getValue();
@@ -50,12 +57,14 @@ export class NoteService {
                 this.notes.next(updatedNotes);
             }
         }
+        this.saveNotesToLocalStorage();
     }
 
     deleteNote(id: number) {
         let temp_notes = this.notes.getValue();
         temp_notes = temp_notes.filter((note) => note.id !== id);
         this.notes.next(temp_notes);
+        this.saveNotesToLocalStorage();
     }
 
     editNote(id: number) {
@@ -66,5 +75,17 @@ export class NoteService {
 
     newNote(note: INote) {
         this.editNoteObj.next(note);
+    }
+
+    private saveNotesToLocalStorage() {
+        const notes = this.notes.getValue();
+        localStorage.setItem('notes', JSON.stringify(notes));
+    }
+
+    private loadNotesFromLocalStorage() {
+        const notes = localStorage.getItem('notes');
+        if (notes) {
+            this.notes.next(JSON.parse(notes));
+        }
     }
 }
