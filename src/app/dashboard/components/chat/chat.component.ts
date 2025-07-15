@@ -5,6 +5,7 @@ import { OpenAiService } from '../../services/onpenai.service';
 import { IMessage } from '../../../../Interface/interface.module';
 import { GroqService } from '../../services/groq.service';
 import { NoteService } from '../../services/note.service';
+import { AuthService } from '../../../auth/service/auth.service';
 
 @Component({
   selector: 'app-chat',
@@ -19,17 +20,13 @@ import { NoteService } from '../../services/note.service';
   styleUrl: './chat.component.scss'
 })
 export class ChatComponent {
-  constructor(private openAiService: OpenAiService, private groqService: GroqService, private NoteService: NoteService,) {
-
-  }
-
   chatInput = new FormControl('', Validators.required);
   messageError: string = '';
 
   form = new FormGroup({
     chatInput: this.chatInput
   })
-  messages: IMessage[] = [
+  messages: IMessage[] = [ // Потім видалити
     {
       user: 'User',
       text: 'Hello'
@@ -39,6 +36,15 @@ export class ChatComponent {
       text: 'Hello! How can I help you?'
     }
   ];
+
+  constructor(
+    private openAiService: OpenAiService,
+    private groqService: GroqService,
+    private NoteService: NoteService,
+    private authService: AuthService
+  ) {
+
+  }
 
   sendMessage() {
     this.messageError = '';
@@ -79,5 +85,13 @@ export class ChatComponent {
         content: message.text
       });
     }
+  }
+
+  logout() {
+    this.authService.logout();
+  }
+
+  deleteAccount() {
+    this.authService.deleteAccount();
   }
 }

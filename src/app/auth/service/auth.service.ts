@@ -25,14 +25,22 @@ export class AuthService {
         this.userisAuth = { ...user };
     }
 
+    register(user: IUser) {
+        this.users.push(user);
+        this.saveUsersToLocalStorage();
+    }
+
     logout() {
         this.userisAuth = null;
         this.router.navigate(['/login']);
     }
 
-    register(user: IUser) {
-        this.users.push(user);
-        this.saveUsersToLocalStorage();
+    deleteAccount() {
+        if (this.userisAuth) {
+            this.users = this.users.filter(user => user.login !== this.userisAuth?.login);
+            this.saveUsersToLocalStorage();
+            this.logout();
+        }
     }
 
     private saveUsersToLocalStorage() {

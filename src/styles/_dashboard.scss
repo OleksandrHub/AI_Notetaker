@@ -24,7 +24,7 @@
     }
 
     &__note {
-        font-size: clamp(0.625rem, 0.4688rem + 0.5vw, 0.75rem);
+        font-size: 0.75rem;
     }
 
     &__summary {
@@ -36,7 +36,6 @@
 
     &__text {
         padding: 10px;
-        margin: 10px 0;
         overflow-wrap: break-word;
         word-wrap: break-word;
         white-space: pre-wrap;
@@ -222,6 +221,12 @@
             margin: 5px;
             padding: 25px;
         }
+    }
+
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 }
 

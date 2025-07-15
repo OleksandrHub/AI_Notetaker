@@ -39,3 +39,17 @@ a {
 input {
     outline: none;
 }
+
+.chat__action {
+    background-color: transparent;
+    color: $error-color;
+    border: none;
+    margin: 0 10px;
+}
+
+.chat__action:hover {
+    color: darken($error-color, 10%);
+    transform: scale(1.1);
+    background-color: transparent;
+    cursor: pointer;
+}
