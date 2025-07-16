@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 import { ChatComponent } from '../chat/chat.component';
 import { NotesComponents } from '../notes-component/notes/notes.component';
 import { UntitledNotesComponent } from '../untitled-notes/untitled-notes.component';
-import { AuthService } from '../../../auth/service/auth.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',

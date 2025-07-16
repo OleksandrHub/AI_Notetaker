@@ -1,15 +1,15 @@
-<header>
-    <p class="chat__title">Chat</p>
-    <div class="chat__buttons">
-        <button class="chat__action" (click)="logout()">Logout</button>
-        <button class="chat__action" (click)="deleteAccount()">Delete Account</button>
+<header class="chat-header">
+    <p class="chat-header__title">Chat</p>
+    <div class="header-buttons">
+        <button class="header-buttons__action" (click)="logoutWithAccount()">Logout</button>
+        <button class="header-buttons__action" (click)="deleteAccount()">Delete Account</button>
     </div>
 </header>
-<main>
+<main class="chat-main">
     <section class="chat-message">
         <section class="chat-message-header">
             <h2 class="chat-message__title">Ask about this note</h2>
-            <button class="chat-message__action">Action</button>
+            <button class="chat-message__action" (click)="changeTheme()">{{themeButtonText}}</button>
             <button class="chat-message__action">Action</button>
             <button class="chat-message__action">Action</button>
         </section>

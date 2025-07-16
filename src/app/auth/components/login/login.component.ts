@@ -33,13 +33,19 @@ export class LoginComponent {
         this.errorMessage = 'Invalid login or password';
       }
     } else {
-      if (this.formLogin.hasError('required')) {
-        this.errorMessage = 'Login is required.';
-      } else if (this.formPassword.hasError('required')) {
-        this.errorMessage = 'Password is required.';
-      } else if (this.formPassword.hasError('minlength')) {
-        this.errorMessage = 'Password must be at least 6 characters long.';
-      }
+      this.formIsValid();
+    }
+  }
+
+  formIsValid() {
+    if (this.formLogin.hasError('required')) {
+      this.errorMessage = 'Login is required.';
+    } else if (this.formPassword.hasError('required')) {
+      this.errorMessage = 'Password is required.';
+    } else if (this.formPassword.hasError('minlength')) {
+      this.errorMessage = 'Password must be at least 6 characters long.';
+    } else {
+      this.errorMessage = 'Form is invalid. Please check your input.';
     }
   }
 }

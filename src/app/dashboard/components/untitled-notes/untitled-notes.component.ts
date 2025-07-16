@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { INote } from '../../../../Interface/interface.module';
 import { NoteService } from '../../services/note.service';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -18,8 +18,8 @@ export class UntitledNotesComponent {
     content: ''
   };
 
-  formTitle = new FormControl('', Validators.required); // Ініціалізуємо порожнім значенням
-  formContent = new FormControl('', Validators.required); // Ініціалізуємо порожнім значенням
+  formTitle = new FormControl('', Validators.required);
+  formContent = new FormControl('', Validators.required);
   messageError: string = '';
 
   form = new FormGroup({
@@ -58,7 +58,7 @@ export class UntitledNotesComponent {
       title: '',
       content: ''
     });
-    // Скидаємо форму, щоб очистити поля вводу
+
     this.form.reset();
   }
 }

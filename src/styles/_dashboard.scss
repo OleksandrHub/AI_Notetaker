@@ -19,7 +19,7 @@
 }
 
 .notes {
-    main {
+    &-main {
         overflow-y: auto;
     }
 
@@ -49,8 +49,8 @@
 }
 
 .untitled-notes {
-    main {
-        background-color: $secondary-color;
+    &-main {
+        background-color: var(--secondary-color);
         align-items: center;
         display: flex;
         justify-content: center;
@@ -58,7 +58,8 @@
 
     &__text {
         font-size: 1.5rem;
-        color: lighten($primary-text-color, 20%);
+        color: var(--primary-text-color);
+        opacity: 0.8;
     }
 
     &__notes {
@@ -99,7 +100,7 @@
     }
 
     &__error {
-        color: red;
+        color: var(--error-color);
         font-size: 0.75rem;
         text-align: center;
     }
@@ -107,7 +108,7 @@
 }
 
 .chat {
-    main {
+    &-main {
         flex-direction: column;
         display: flex;
         justify-content: space-around;
@@ -146,7 +147,7 @@
 
             &:hover::after {
                 content: 'Click to make a note';
-                background-color: $accent-color;
+                background-color: var(-accent-color);
                 position: absolute;
                 top: -20px;
                 right: 0;
@@ -167,7 +168,7 @@
 
         &__text pre {
             width: clamp(100px, 100px + 10vw, 300px);
-            background-color: $secondary-color;
+            background-color: var(--secondary-color);
             font-size: 0.75rem;
             padding: 10px;
             border-radius: 5px;
@@ -178,8 +179,8 @@
         }
 
         &__text--bot pre {
-            background-color: $primary-color;
-            border: 1px solid $border-color;
+            background-color: var(--primary-color);
+            border: 1px solid var(--border-color);
         }
     }
 
@@ -194,12 +195,12 @@
         &__field {
             width: 65%;
             margin: 0 10px;
-            border: 1px solid $border-color;
+            border: 1px solid var(--border-color);
             border-radius: 10px;
         }
 
         &__input {
-            width: 99%;
+            width: 100%;
             padding: 8px;
             line-height: 1.25rem;
             font-size: 1rem;
@@ -213,7 +214,7 @@
         }
 
         &__error {
-            color: $error-color;
+            color: var(--error-color);
             font-size: 0.6rem;
         }
 
@@ -223,7 +224,7 @@
         }
     }
 
-    header {
+    &-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -233,26 +234,23 @@
 .notes,
 .untitled-notes,
 .chat {
-    border: 1px solid $border-color;
+    border: 1px solid var(--border-color);
 
-    header {
+    &-header {
         height: 40px;
-        border-bottom: 1px solid $border-color;
+        border-bottom: 1px solid var(--border-color);
         border-radius: 5px;
 
-        p {
+        &__title {
+            font-size: 1.5rem;
+            padding-left: 10px;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap
         }
     }
 
-    &__title {
-        font-size: 1.5rem;
-        padding-left: 10px;
-    }
-
-    main {
+    &-main {
         min-height: 300px;
         height: calc(100vh - 45px);
         padding: 10px;

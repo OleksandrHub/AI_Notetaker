@@ -6,6 +6,7 @@ import { IMessage } from '../../../../Interface/interface.module';
 import { GroqService } from '../../services/groq.service';
 import { NoteService } from '../../services/note.service';
 import { AuthService } from '../../../auth/service/auth.service';
+import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-chat',
@@ -22,6 +23,8 @@ import { AuthService } from '../../../auth/service/auth.service';
 export class ChatComponent {
   chatInput = new FormControl('', Validators.required);
   messageError: string = '';
+  themeButtonText: string = 'Dark mode';
+
 
   form = new FormGroup({
     chatInput: this.chatInput
@@ -41,7 +44,8 @@ export class ChatComponent {
     private openAiService: OpenAiService,
     private groqService: GroqService,
     private NoteService: NoteService,
-    private authService: AuthService
+    private authService: AuthService,
+    private themeService: ThemeService
   ) {
 
   }
@@ -49,32 +53,28 @@ export class ChatComponent {
   sendMessage() {
     this.messageError = '';
     if (this.form.valid && this.chatInput.value?.trim()) {
-      this.messages.push({
-        user: 'User',
-        text: this.chatInput.value
-      });
+      this.pushMessage('User', this.chatInput.value);
 
       this.groqService.summarize(this.chatInput.value).subscribe({
-        next: res => {
-          this.messages.push({
-            user: 'Bot',
-            text: res
-          })
-        },
-        error: err => {
-          this.messages.push({
-            user: 'Bot',
-            text: 'Error: ' + err.message
-          })
-        }
+        next: res => { this.pushMessage('Bot', res); },
+        error: err => { this.pushMessage('Bot', 'Error: ' + err.message); }
       })
 
       this.form.reset();
     } else {
       if (this.chatInput.hasError('required') || this.chatInput.value?.trim() === '') {
         this.messageError = '*Message is required';
+      } else {
+        this.messageError = '*Invalid message';
       }
     }
+  }
+
+  pushMessage(user: string, text: string) {
+    this.messages.push({
+      user: user,
+      text: text
+    });
   }
 
   selectMessage(message: IMessage) {
@@ -87,11 +87,15 @@ export class ChatComponent {
     }
   }
 
-  logout() {
-    this.authService.logout();
+  logoutWithAccount() {
+    this.authService.logoutWithAccount();
   }
 
   deleteAccount() {
     this.authService.deleteAccount();
+  }
+
+  changeTheme() {
+    this.themeButtonText = this.themeService.changeTheme();
   }
 }

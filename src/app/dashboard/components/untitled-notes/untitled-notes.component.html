@@ -1,7 +1,7 @@
-<header>
-    <p class="untitled-notes__title">Untitled notes</p>
+<header class="untitled-notes-header">
+    <p class="untitled-notes-header__title">Untitled notes</p>
 </header>
-<main>
+<main class="untitled-notes-main">
     <p class="untitled-notes__text" *ngIf="note.id === 0">Add your notes</p>
     <form class="untitled-notes__notes" *ngIf="note.id !== 0" [formGroup]="form" (ngSubmit)="saveNote()">
         <button class="untitled-notes__button--close" (click)="closeNote()" type="button">✘</button>
