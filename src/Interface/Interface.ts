@@ -14,3 +14,7 @@ export interface INote {
     title: string;
     content: string;
 }
+
+export interface INoteWithUserId {
+    [key: string]: INote[];
+}

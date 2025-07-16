@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { INote } from "../../../Interface/interface.module";
+import { INote, INoteWithUserId } from "../../../Interface/Interface";
 import { BehaviorSubject, max } from "rxjs";
 
 @Injectable({
@@ -37,7 +37,6 @@ export class NoteService {
     editNote$ = this.editNoteObj.asObservable();
 
     constructor() {
-        this.loadNotesFromLocalStorage();
         if (this.notes.getValue().length === 0) { // Потім видалити
             this.notes.next(this.defaultNote);
         }
@@ -79,13 +78,23 @@ export class NoteService {
 
     private saveNotesToLocalStorage() {
         const notes = this.notes.getValue();
-        localStorage.setItem('notes', JSON.stringify(notes));
+        const user_id = localStorage.getItem('token');
+        if (!user_id) return;
+        const notesWithUserId = JSON.parse(atob(localStorage.getItem('notes') || btoa('{}'))) as INoteWithUserId;
+        notesWithUserId[user_id] = notes;
+        localStorage.setItem('notes', btoa(JSON.stringify(notesWithUserId)));
     }
 
-    private loadNotesFromLocalStorage() {
+    loadNotesFromLocalStorage() {
         const notes = localStorage.getItem('notes');
-        if (notes) {
-            this.notes.next(JSON.parse(notes));
+        const user_id = localStorage.getItem('token');
+        if (notes && user_id) {
+            const parsedNotes = JSON.parse(atob(notes)) as INoteWithUserId;
+            if (parsedNotes[user_id]) {
+                this.notes.next(parsedNotes[user_id]);
+                return;
+            }
         }
+        this.notes.next(this.defaultNote);
     }
 }

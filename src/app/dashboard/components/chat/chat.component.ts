@@ -2,7 +2,7 @@ import { NgClass, NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { OpenAiService } from '../../services/onpenai.service';
-import { IMessage } from '../../../../Interface/interface.module';
+import { IMessage } from '../../../../Interface/Interface';
 import { GroqService } from '../../services/groq.service';
 import { NoteService } from '../../services/note.service';
 import { AuthService } from '../../../auth/service/auth.service';
