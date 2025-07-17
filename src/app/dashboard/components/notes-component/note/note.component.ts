@@ -1,7 +1,7 @@
 import { NgFor } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { NoteService } from '../../../services/note.service';
-import { INote } from '../../../../../Interface/Interface';
+import { INote } from '../../../../../Interfaces';
 
 @Component({
   selector: 'app-note',

@@ -1,6 +1,6 @@
 import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import { INote } from '../../../../Interface/Interface';
+import { INote } from '../../../../Interfaces';
 import { NoteService } from '../../services/note.service';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 

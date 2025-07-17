@@ -1,15 +1,14 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { INote, IUser } from "../../../Interface/Interface";
+import { INote, IUser } from "../../../Interfaces";
 import { ThemeService } from "../../dashboard/services/theme.service";
 import { NoteService } from "../../dashboard/services/note.service";
+import { THEME_STORAGE_KEY, TOKEN_KEY } from "../../../constants";
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
-    private readonly TOKEN_KEY = 'token';
-    private readonly THEME_STORAGE_KEY = 'darkThemeUserIds';
     userisAuth: IUser | null = null;
 
     users: IUser[] = []
@@ -17,7 +16,7 @@ export class AuthService {
     constructor(private router: Router, private themeService: ThemeService, private noteService: NoteService) {
         this.loadUsersFromLocalStorage();
 
-        if (localStorage.getItem('token')) {
+        if (localStorage.getItem(TOKEN_KEY)) {
             this.userisAuth = this.users.find(user => user.id === +localStorage.getItem('token')!) || null;
             this.router.navigate(['/dashboard']);
             this.themeService.loadTheme();
@@ -33,7 +32,7 @@ export class AuthService {
 
     login(user: IUser) {
         this.userisAuth = { ...user };
-        localStorage.setItem('token', user.id.toString());
+        localStorage.setItem(TOKEN_KEY, user.id.toString());
         this.themeService.loadTheme();
         this.noteService.loadNotesFromLocalStorage();
     }
@@ -47,14 +46,14 @@ export class AuthService {
     logoutWithAccount() {
         this.userisAuth = null;
         this.router.navigate(['/login']);
-        localStorage.removeItem(this.TOKEN_KEY);
+        localStorage.removeItem(TOKEN_KEY);
         this.themeService.loadTheme();
     }
 
     deleteAccount() {
         if (this.userisAuth) {
             const notes = JSON.parse(localStorage.getItem('notes') || '[]');
-            const darkThemeUserIds = JSON.parse(localStorage.getItem(this.THEME_STORAGE_KEY) || '[]') as number[];
+            const darkThemeUserIds = JSON.parse(localStorage.getItem(THEME_STORAGE_KEY) || '[]') as number[];
             const userId = this.userisAuth.id;
             for (let key in notes) {
                 if (key === userId.toString()) {
@@ -64,7 +63,7 @@ export class AuthService {
             localStorage.setItem('notes', JSON.stringify(notes));
             if (darkThemeUserIds.includes(userId)) {
                 darkThemeUserIds.splice(darkThemeUserIds.indexOf(userId), 1);
-                localStorage.setItem(this.THEME_STORAGE_KEY, JSON.stringify(darkThemeUserIds));
+                localStorage.setItem(THEME_STORAGE_KEY, JSON.stringify(darkThemeUserIds));
             }
 
             this.users = this.users.filter(user => user.login !== this.userisAuth?.login);

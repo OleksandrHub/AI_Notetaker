@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { INote, INoteWithUserId } from "../../../Interface/Interface";
+import { INote, INoteWithUserId } from "../../../Interfaces";
 import { BehaviorSubject, max } from "rxjs";
 
 @Injectable({

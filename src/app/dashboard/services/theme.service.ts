@@ -1,12 +1,11 @@
 import { Injectable } from "@angular/core";
+import { THEME_STORAGE_KEY, TOKEN_KEY } from "../../../constants";
 
 @Injectable({ providedIn: 'root' })
 export class ThemeService {
-    private readonly THEME_STORAGE_KEY = 'darkThemeUserIds';
-    private readonly TOKEN_KEY = 'token';
 
     private getDarkThemeUserIds(): number[] {
-        const storedIds = localStorage.getItem(this.THEME_STORAGE_KEY);
+        const storedIds = localStorage.getItem(THEME_STORAGE_KEY);
         try {
             return storedIds ? JSON.parse(storedIds) : [];
         } catch (e) {
@@ -16,11 +15,11 @@ export class ThemeService {
     }
 
     private saveDarkThemeUserIds(ids: number[]): void {
-        localStorage.setItem(this.THEME_STORAGE_KEY, JSON.stringify(ids));
+        localStorage.setItem(THEME_STORAGE_KEY, JSON.stringify(ids));
     }
 
     loadTheme() {
-        const userIdString = localStorage.getItem(this.TOKEN_KEY);
+        const userIdString = localStorage.getItem(TOKEN_KEY);
         if (!userIdString) {
             document.body.classList.remove('dark-theme');
             return;
@@ -32,7 +31,7 @@ export class ThemeService {
     }
 
     changeTheme(): string {
-        const userIdString = localStorage.getItem(this.TOKEN_KEY);
+        const userIdString = localStorage.getItem(TOKEN_KEY);
         if (!userIdString) { return 'Dark mode'; }
         const userId = +userIdString;
         let darkThemeUsers = this.getDarkThemeUserIds();
