@@ -7,6 +7,7 @@ import { GroqService } from '../../services/groq.service';
 import { NoteService } from '../../services/note.service';
 import { AuthService } from '../../../auth/service/auth.service';
 import { ThemeService } from '../../services/theme.service';
+import { MatButtonToggle, MatButtonToggleGroup } from '@angular/material/button-toggle';
 
 @Component({
   selector: 'app-chat',
@@ -15,7 +16,9 @@ import { ThemeService } from '../../services/theme.service';
     NgFor,
     NgClass,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatButtonToggleGroup,
+    MatButtonToggle
   ],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss'

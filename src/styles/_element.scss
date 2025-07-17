@@ -1,0 +1,37 @@
+.login-form__button,
+.registration-form__button,
+.login__register-button,
+.registration__login-button,
+.chat-message__action,
+.chat-footer__action,
+.notes__button {
+    cursor: pointer;
+    background-color: var(--accent-color);
+    border: none;
+    border-radius: 5px;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+        cursor: pointer;
+        background-color: var(--success-color);
+        transform: scale(1.1);
+    }
+}
+
+mat-button-toggle {
+    transition: all 0.5s ease-in-out;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.2);
+
+    :hover {
+        transform: translate(0, -2px);
+        cursor: pointer;
+    }
+}
+
+mat-button-toggle-group {
+    background-color: var(--accent-color);
+
+    :hover {
+        background-color: var(--button-color);
+    }
+}

@@ -1,9 +1,11 @@
 <header class="chat-header">
     <p class="chat-header__title">Chat</p>
-    <div class="header-buttons">
-        <button class="header-buttons__action" (click)="logoutWithAccount()">Logout</button>
-        <button class="header-buttons__action" (click)="deleteAccount()">Delete Account</button>
-    </div>
+    <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+        <mat-button-toggle class="header-buttons__action" (click)="logoutWithAccount()"
+            value="bold">Logout</mat-button-toggle>
+        <mat-button-toggle class="header-buttons__action" (click)="deleteAccount()" value="bold">Delete
+            Account</mat-button-toggle>
+    </mat-button-toggle-group>
 </header>
 <main class="chat-main">
     <section class="chat-message">
