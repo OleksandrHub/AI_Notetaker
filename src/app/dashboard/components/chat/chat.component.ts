@@ -32,15 +32,15 @@ export class ChatComponent {
   form = new FormGroup({
     chatInput: this.chatInput
   })
-  messages: IMessage[] = [ // Потім видалити
-    {
-      user: 'User',
-      text: 'Hello'
-    },
-    {
-      user: 'Bot',
-      text: 'Hello! How can I help you?'
-    }
+  messages: IMessage[] = [
+    // {
+    //   user: 'User',
+    //   text: 'Hello'
+    // },
+    // {
+    //   user: 'Bot',
+    //   text: 'Hello! How can I help you?'
+    // }
   ];
 
   constructor(
@@ -97,6 +97,7 @@ export class ChatComponent {
   deleteAccount() {
     this.authService.deleteAccount();
   }
+
 
   changeTheme() {
     this.themeButtonText = this.themeService.changeTheme();

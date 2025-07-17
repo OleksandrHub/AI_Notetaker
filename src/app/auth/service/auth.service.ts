@@ -22,13 +22,13 @@ export class AuthService {
             this.router.navigate(['/dashboard']);
             this.themeService.loadTheme();
         }
-        if (this.users.length === 0) { // Потім видалити
-            this.users.push({
-                id: 1,
-                login: 'admin',
-                password: 'admin123'
-            });
-        }
+        // if (this.users.length === 0) { // Потім видалити
+        //     this.users.push({
+        //         id: 1,
+        //         login: 'admin',
+        //         password: 'admin123'
+        //     });
+        // }
     }
 
     login(user: IUser) {

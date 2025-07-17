@@ -12,23 +12,23 @@ export class NoteService {
         content: ''
     };
 
-    private defaultNote: INote[] = [
-        {
-            id: 1,
-            title: 'Note 1',
-            content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque laudantium recusandae eaque labore eos eum optio numquam dolor, dolore commodi sit dolores voluptatum magnam sunt repellat! Modi ipsum doloribus saepe.'
-        },
-        {
-            id: 2,
-            title: 'Note 2',
-            content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque laudantium recusandae eaque labore eos eum optio numquam dolor, dolore commodi sit dolores voluptatum magnam sunt repellat! Modi ipsum doloribus saepe.'
-        },
-        {
-            id: 3,
-            title: 'Note 3',
-            content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque laudantium recusandae eaque labore eos eum optio numquam dolor, dolore commodi sit dolores voluptatum magnam sunt repellat! Modi ipsum doloribus saepe.'
-        }
-    ];
+    // private defaultNote: INote[] = [
+    //     {
+    //         id: 1,
+    //         title: 'Note 1',
+    //         content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque laudantium recusandae eaque labore eos eum optio numquam dolor, dolore commodi sit dolores voluptatum magnam sunt repellat! Modi ipsum doloribus saepe.'
+    //     },
+    //     {
+    //         id: 2,
+    //         title: 'Note 2',
+    //         content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque laudantium recusandae eaque labore eos eum optio numquam dolor, dolore commodi sit dolores voluptatum magnam sunt repellat! Modi ipsum doloribus saepe.'
+    //     },
+    //     {
+    //         id: 3,
+    //         title: 'Note 3',
+    //         content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque laudantium recusandae eaque labore eos eum optio numquam dolor, dolore commodi sit dolores voluptatum magnam sunt repellat! Modi ipsum doloribus saepe.'
+    //     }
+    // ];
 
     private notes = new BehaviorSubject<INote[]>([])
     notes$ = this.notes.asObservable();
@@ -37,9 +37,9 @@ export class NoteService {
     editNote$ = this.editNoteObj.asObservable();
 
     constructor() {
-        if (this.notes.getValue().length === 0) { // Потім видалити
-            this.notes.next(this.defaultNote);
-        }
+        // if (this.notes.getValue().length === 0) { // Потім видалити
+        //     this.notes.next(this.defaultNote);
+        // }
     }
 
     saveNote(note: INote) {
@@ -95,6 +95,6 @@ export class NoteService {
                 return;
             }
         }
-        this.notes.next(this.defaultNote);
+        // this.notes.next(this.defaultNote);
     }
 }
