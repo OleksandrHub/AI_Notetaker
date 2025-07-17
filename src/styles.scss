@@ -28,15 +28,12 @@ html {
 
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
-@import 'styles/dashboard.scss';
-@import 'styles/auth';
-@import 'styles/element';
-
 
 
 :root {
   --primary-color: white;
   --secondary-color: #cecece;
+  --threery-color: #ffffff;
   --primary-text-color: #2E2E2E;
   --border-color: #686c75;
   --accent-color: #9899e5;
@@ -46,10 +43,11 @@ html {
 }
 
 body.dark-theme {
-  --primary-color: #1E1E2E;
-  --secondary-color: #2A2A3C;
+  --primary-color: #242831;
+  --secondary-color: #3b3f4d;
+  --threery-color: #252a33;
   --primary-text-color: #E5E7EB;
-  --border-color: #4B5563;
+  --border-color: #1b1e24;
   --accent-color: #60A5FA;
   --success-color: #34D399;
   --error-color: #F87171;
@@ -77,4 +75,61 @@ a {
 
 input {
   outline: none;
+}
+
+.login-form__button,
+.registration-form__button,
+.login-register__button,
+.registration-login__button,
+.chat-message__action,
+.chat-footer__action,
+.notes__button,
+.untitled-notes__button--close,
+.untitled-notes__button--save {
+  cursor: pointer;
+  background-color: var(--accent-color);
+  border: none;
+  border-radius: 5px;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    cursor: pointer;
+    background-color: var(--success-color);
+    transform: scale(1.1);
+  }
+}
+
+mat-button-toggle {
+  transition: all 0.5s ease-in-out;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.2);
+
+  :hover {
+    cursor: pointer;
+  }
+}
+
+mat-button-toggle-group {
+  height: 40px;
+  background-color: var(--accent-color);
+
+  :hover {
+    background-color: var(--button-color);
+  }
+
+  @media screen and (max-width: 400px) {
+    margin: 0 auto;
+  }
+}
+
+.header-buttons__action {
+  :checked::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: var(--accent-color);
+    border-radius: 5px;
+    transition: all 0.2s ease-in-out;
+
+  }
 }

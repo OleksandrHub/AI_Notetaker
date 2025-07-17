@@ -12,23 +12,23 @@ export class NoteService {
         content: ''
     };
 
-    // private defaultNote: INote[] = [
-    //     {
-    //         id: 1,
-    //         title: 'Note 1',
-    //         content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque laudantium recusandae eaque labore eos eum optio numquam dolor, dolore commodi sit dolores voluptatum magnam sunt repellat! Modi ipsum doloribus saepe.'
-    //     },
-    //     {
-    //         id: 2,
-    //         title: 'Note 2',
-    //         content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque laudantium recusandae eaque labore eos eum optio numquam dolor, dolore commodi sit dolores voluptatum magnam sunt repellat! Modi ipsum doloribus saepe.'
-    //     },
-    //     {
-    //         id: 3,
-    //         title: 'Note 3',
-    //         content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque laudantium recusandae eaque labore eos eum optio numquam dolor, dolore commodi sit dolores voluptatum magnam sunt repellat! Modi ipsum doloribus saepe.'
-    //     }
-    // ];
+    private defaultNote: INote[] = [ // Потім видалити
+        {
+            id: 1,
+            title: 'Note 1',
+            content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque laudantium recusandae eaque labore eos eum optio numquam dolor, dolore commodi sit dolores voluptatum magnam sunt repellat! Modi ipsum doloribus saepe.'
+        },
+        {
+            id: 2,
+            title: 'Note 2',
+            content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque laudantium recusandae eaque labore eos eum optio numquam dolor, dolore commodi sit dolores voluptatum magnam sunt repellat! Modi ipsum doloribus saepe.'
+        },
+        {
+            id: 3,
+            title: 'Note 3',
+            content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque laudantium recusandae eaque labore eos eum optio numquam dolor, dolore commodi sit dolores voluptatum magnam sunt repellat! Modi ipsum doloribus saepe.'
+        }
+    ];
 
     private notes = new BehaviorSubject<INote[]>([])
     notes$ = this.notes.asObservable();
@@ -37,9 +37,9 @@ export class NoteService {
     editNote$ = this.editNoteObj.asObservable();
 
     constructor() {
-        // if (this.notes.getValue().length === 0) { // Потім видалити
-        //     this.notes.next(this.defaultNote);
-        // }
+        if (this.notes.getValue().length === 0) { // Потім видалити
+            this.notes.next(this.defaultNote);
+        }
     }
 
     saveNote(note: INote) {
@@ -80,16 +80,16 @@ export class NoteService {
         const notes = this.notes.getValue();
         const user_id = localStorage.getItem('token');
         if (!user_id) return;
-        const notesWithUserId = JSON.parse(atob(localStorage.getItem('notes') || btoa('{}'))) as INoteWithUserId;
+        const notesWithUserId = JSON.parse(localStorage.getItem('notes') || '{}') as INoteWithUserId;
         notesWithUserId[user_id] = notes;
-        localStorage.setItem('notes', btoa(JSON.stringify(notesWithUserId)));
+        localStorage.setItem('notes', JSON.stringify(notesWithUserId));
     }
 
     loadNotesFromLocalStorage() {
         const notes = localStorage.getItem('notes');
         const user_id = localStorage.getItem('token');
         if (notes && user_id) {
-            const parsedNotes = JSON.parse(atob(notes)) as INoteWithUserId;
+            const parsedNotes = JSON.parse(notes) as INoteWithUserId;
             if (parsedNotes[user_id]) {
                 this.notes.next(parsedNotes[user_id]);
                 return;

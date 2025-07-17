@@ -1,19 +1,12 @@
 <header class="chat-header">
     <p class="chat-header__title">Chat</p>
-    <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-        <mat-button-toggle class="header-buttons__action" (click)="logoutWithAccount()"
-            value="bold">Logout</mat-button-toggle>
-        <mat-button-toggle class="header-buttons__action" (click)="deleteAccount()" value="bold">Delete
-            Account</mat-button-toggle>
-    </mat-button-toggle-group>
+
 </header>
 <main class="chat-main">
     <section class="chat-message">
         <section class="chat-message-header">
             <h2 class="chat-message__title">Ask about this note</h2>
-            <button class="chat-message__action" (click)="changeTheme()">{{themeButtonText}}</button>
-            <button class="chat-message__action">Action</button>
-            <button class="chat-message__action">Action</button>
+            <h2 class="chat-message__title">WELCOME TO CHAT {{nameUser}}</h2>
         </section>
         <fieldset *ngFor="let message of messages" class="chat-message__text"
             [ngClass]="'chat-message__text--' + message.user.toLowerCase()" (click)="selectMessage(message)">

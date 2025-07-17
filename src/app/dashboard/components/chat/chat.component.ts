@@ -6,8 +6,6 @@ import { IMessage } from '../../../../Interfaces';
 import { GroqService } from '../../services/groq.service';
 import { NoteService } from '../../services/note.service';
 import { AuthService } from '../../../auth/service/auth.service';
-import { ThemeService } from '../../services/theme.service';
-import { MatButtonToggle, MatButtonToggleGroup } from '@angular/material/button-toggle';
 
 @Component({
   selector: 'app-chat',
@@ -17,8 +15,6 @@ import { MatButtonToggle, MatButtonToggleGroup } from '@angular/material/button-
     NgClass,
     FormsModule,
     ReactiveFormsModule,
-    MatButtonToggleGroup,
-    MatButtonToggle
   ],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss'
@@ -32,25 +28,26 @@ export class ChatComponent {
   form = new FormGroup({
     chatInput: this.chatInput
   })
-  messages: IMessage[] = [
-    // {
-    //   user: 'User',
-    //   text: 'Hello'
-    // },
-    // {
-    //   user: 'Bot',
-    //   text: 'Hello! How can I help you?'
-    // }
+  messages: IMessage[] = [ //Потім видалити
+    {
+      user: 'User',
+      text: 'Hello'
+    },
+    {
+      user: 'Bot',
+      text: 'Hello! How can I help you?'
+    }
   ];
+
+  nameUser: string = '';
 
   constructor(
     private openAiService: OpenAiService,
     private groqService: GroqService,
     private NoteService: NoteService,
     private authService: AuthService,
-    private themeService: ThemeService
   ) {
-
+    this.nameUser = this.authService.userisAuth?.login || '';
   }
 
   sendMessage() {
@@ -88,18 +85,5 @@ export class ChatComponent {
         content: message.text
       });
     }
-  }
-
-  logoutWithAccount() {
-    this.authService.logoutWithAccount();
-  }
-
-  deleteAccount() {
-    this.authService.deleteAccount();
-  }
-
-
-  changeTheme() {
-    this.themeButtonText = this.themeService.changeTheme();
   }
 }
