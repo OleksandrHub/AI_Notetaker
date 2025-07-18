@@ -46,6 +46,7 @@ export class ThemeService {
         this.saveDarkThemeUserIds(darkThemeUsers);
         const isDarkTheme = !userHadDarkTheme;
         document.body.classList.toggle('dark-theme', isDarkTheme);
+
         return isDarkTheme ? 'Light mode' : 'Dark mode';
     }
 }

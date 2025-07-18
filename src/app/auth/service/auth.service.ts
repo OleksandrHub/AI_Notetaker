@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { INote, INoteWithUserId, IUser } from "../../../Interfaces";
+import { IUser } from "../../../Interfaces";
 import { ThemeService } from "../../dashboard/services/theme.service";
 import { NoteService } from "../../dashboard/services/note.service";
 import { THEME_STORAGE_KEY, TOKEN_KEY } from "../../../constants";
@@ -22,27 +22,27 @@ export class AuthService {
             this.themeService.loadTheme();
             this.noteService.loadNotesFromLocalStorage();
         }
-        if (this.users.length === 0) { // Потім видалити
-            this.users.push({
-                id: 1,
-                login: 'admin',
-                password: 'admin123'
-            });
-        }
+        // if (this.users.length === 0) { // Потім видалити
+        //     this.users.push({
+        //         id: 1,
+        //         login: 'admin',
+        //         password: 'admin123'
+        //     });
+        // }
     }
 
     login(user: IUser) {
         this.userisAuth = { ...user };
         localStorage.setItem(TOKEN_KEY, user.id.toString());
-        this.themeService.loadTheme();
         this.noteService.loadNotesFromLocalStorage();
+        this.themeService.loadTheme();
     }
 
     register(user: IUser) {
         this.users.push(user);
         this.saveUsersToLocalStorage();
-        this.themeService.loadTheme();
         this.noteService.loadNotesFromLocalStorage();
+        this.themeService.loadTheme();
     }
 
     logoutWithAccount() {

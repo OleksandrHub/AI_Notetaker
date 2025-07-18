@@ -1,13 +1,10 @@
 <header class="dashboard-header">
     <h1 class="dashboard-header__title">Dashboard</h1>
-    <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-        <mat-button-toggle class="header-buttons__action" (click)="logoutWithAccount()" value="bold"
-            role="button">Logout</mat-button-toggle>
-        <mat-button-toggle class="header-buttons__action" (click)="deleteAccount()" value="bold" role="button">Delete
-            Account</mat-button-toggle>
-        <mat-button-toggle class="header-buttons__action" (click)="changeTheme()" value="
-            bold" role="button">{{themeButtonText}}</mat-button-toggle>
-    </mat-button-toggle-group>
+    <div class="header-buttons">
+        <button mat-button class="header-buttons__action" (click)="logoutWithAccount()">Logout</button>
+        <button mat-button class="header-buttons__action" (click)="deleteAccount()">Delete Account</button>
+        <button mat-button class="header-buttons__action" (click)="changeTheme()">{{themeButtonText}}</button>
+    </div>
 </header>
 <div class="wrap">
     <app-notes class="notes"></app-notes>

@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { NoteService } from '../../../services/note.service';
 import { INote } from '../../../../../Interfaces';
+import { SnackBarService } from '../../../services/snackBar.service';
 
 @Component({
   selector: 'app-note',
@@ -11,9 +12,10 @@ import { INote } from '../../../../../Interfaces';
 export class NoteComponents {
   @Input() note!: INote;
 
-  constructor(private noteService: NoteService) { }
+  constructor(private noteService: NoteService, private snackBarService: SnackBarService) { }
   deleteNote(id: number) {
     this.noteService.deleteNote(id);
+    this.snackBarService.open('Нотатка успішно видалена!');
   }
 
   editNote(id: number) {

@@ -3,6 +3,7 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../service/auth.service';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgIf } from '@angular/common';
+import { SnackBarService } from '../../../dashboard/services/snackBar.service';
 
 @Component({
   selector: 'app-registation',
@@ -11,7 +12,7 @@ import { NgIf } from '@angular/common';
   styleUrl: './registration.scss'
 })
 export class RegistationComponent {
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private snackBarService: SnackBarService) { }
 
   errorMessage: string = ''
 
@@ -41,6 +42,7 @@ export class RegistationComponent {
         }
         this.authService.register(user);
         this.authService.login(user);
+        this.snackBarService.open('Ви успішно зареєстровані!');
         this.router.navigate(['/dashboard']); // Змінити на '/dashboard' якщо потрібно перенаправлення на головну сторінку
 
       } else {

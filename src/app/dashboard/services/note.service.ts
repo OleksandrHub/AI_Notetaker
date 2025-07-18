@@ -36,11 +36,7 @@ export class NoteService {
     editNoteObj = new BehaviorSubject<INote>(this.note);
     editNote$ = this.editNoteObj.asObservable();
 
-    constructor() {
-        if (this.notes.getValue().length === 0) { // Потім видалити
-            this.notes.next(this.defaultNote);
-        }
-    }
+    constructor() { }
 
     saveNote(note: INote) {
         const temp_notes = this.notes.getValue();
@@ -89,12 +85,17 @@ export class NoteService {
         const notes = localStorage.getItem('notes');
         const user_id = localStorage.getItem('token');
         if (notes && user_id) {
-            const parsedNotes = JSON.parse(notes) as INoteWithUserId;
-            if (parsedNotes[user_id]) {
-                this.notes.next(parsedNotes[user_id]);
-                return;
+            try {
+                const parsedNotes = JSON.parse(notes) as INoteWithUserId;
+                if (parsedNotes[user_id]) {
+                    this.notes.next(parsedNotes[user_id]);
+                    return;
+                }
+            } catch (e) {
+                console.error('Could not parse notes from local storage', e);
+                localStorage.removeItem('notes');
             }
         }
-        // this.notes.next(this.defaultNote);
+        this.notes.next(this.defaultNote);
     }
 }

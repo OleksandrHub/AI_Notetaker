@@ -1,8 +1,10 @@
 import { NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { INote } from '../../../../Interfaces';
 import { NoteService } from '../../services/note.service';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { SnackBarService } from '../../../dashboard/services/snackBar.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-untitled-notes',
@@ -10,13 +12,15 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
   templateUrl: './untitled-notes.component.html',
   styleUrl: './untitled-notes.component.scss'
 })
-export class UntitledNotesComponent {
-  constructor(private noteService: NoteService) { }
+export class UntitledNotesComponent implements OnInit, OnDestroy {
+  constructor(private noteService: NoteService, private snackBarService: SnackBarService) { }
   note: INote = {
     id: 0,
     title: '',
     content: ''
   };
+
+  private destroy$ = new Subject<void>();
 
   formTitle = new FormControl('', Validators.required);
   formContent = new FormControl('', Validators.required);
@@ -28,13 +32,20 @@ export class UntitledNotesComponent {
   });
 
   ngOnInit() {
-    this.noteService.editNote$.subscribe((note) => {
-      this.note = note;
-      this.form.patchValue({
-        formTitle: note.title,
-        formContent: note.content
+    this.noteService.editNote$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((note) => {
+        this.note = note;
+        this.form.patchValue({
+          formTitle: note.title,
+          formContent: note.content
+        });
       });
-    });
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   saveNote() {
@@ -46,6 +57,7 @@ export class UntitledNotesComponent {
         title: this.formTitle.value || '',
         content: this.formContent.value || ''
       });
+      this.snackBarService.open('Нотатка успішно збережена!');
       this.closeNote();
     } else {
       this.messageError = 'All fields are required';

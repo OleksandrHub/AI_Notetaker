@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
 import { Environment } from "../../../../environment";
+import { AIResponse } from "../../../Interfaces";
 
 @Injectable({ providedIn: 'root' })
 export class GroqService {
@@ -23,8 +24,8 @@ export class GroqService {
             ]
         };
 
-        return this.http.post(this.apiUrl, body, { headers: this.headers }).pipe(
-            map((res: any) => res.choices[0].message.content)
+        return this.http.post<AIResponse>(this.apiUrl, body, { headers: this.headers }).pipe(
+            map((res) => res.choices[0].message.content)
         );
     }
 }

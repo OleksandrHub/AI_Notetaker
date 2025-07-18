@@ -2,25 +2,23 @@ import { Component } from '@angular/core';
 import { NoteComponents } from '../note/note.component';
 import { INote } from '../../../../../Interfaces';
 import { NoteService } from '../../../services/note.service';
-import { NgFor } from '@angular/common';
+import { NgFor, AsyncPipe } from '@angular/common';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-notes',
   imports: [
     NoteComponents,
-    NgFor
+    NgFor,
+    AsyncPipe
   ],
   templateUrl: './notes.component.html',
   styleUrl: './notes.component.scss'
 })
 export class NotesComponents {
-  notes: INote[] = [];
+  notes$: Observable<INote[]>;
 
-  constructor(private noteService: NoteService) { }
-
-  ngOnInit() {
-    this.noteService.notes$.subscribe((notes) => {
-      this.notes = notes;
-    });
+  constructor(private noteService: NoteService) {
+    this.notes$ = this.noteService.notes$;
   }
 }

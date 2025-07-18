@@ -6,6 +6,7 @@ import { IMessage } from '../../../../Interfaces';
 import { GroqService } from '../../services/groq.service';
 import { NoteService } from '../../services/note.service';
 import { AuthService } from '../../../auth/service/auth.service';
+import { SnackBarService } from '../../../dashboard/services/snackBar.service';
 
 @Component({
   selector: 'app-chat',
@@ -46,6 +47,7 @@ export class ChatComponent {
     private groqService: GroqService,
     private NoteService: NoteService,
     private authService: AuthService,
+    private snackBarService: SnackBarService
   ) {
     this.nameUser = this.authService.userisAuth?.login || '';
   }
@@ -55,10 +57,11 @@ export class ChatComponent {
     if (this.form.valid && this.chatInput.value?.trim()) {
       this.pushMessage('User', this.chatInput.value);
 
-      this.groqService.summarize(this.chatInput.value).subscribe({
-        next: res => { this.pushMessage('Bot', res); },
-        error: err => { this.pushMessage('Bot', 'Error: ' + err.message); }
-      })
+      this.groqService.summarize(this.chatInput.value).subscribe(
+        res => { this.pushMessage('Bot', res); },
+        err => { this.pushMessage('Bot', 'Error: ' + err.message); },
+        () => { this.snackBarService.open('Повідомлення успішно відправлено!'); }
+      )
 
       this.form.reset();
     } else {
@@ -84,6 +87,7 @@ export class ChatComponent {
         title: '',
         content: message.text
       });
+      this.snackBarService.open('Нотатка додана в режим редагування!');
     }
   }
 }
