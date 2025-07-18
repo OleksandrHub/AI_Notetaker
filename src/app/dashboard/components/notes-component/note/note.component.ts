@@ -1,30 +1,21 @@
-import { NgFor } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { NoteService } from '../../../services/note.service';
-import { INote } from '../../../../../Interface/Interface';
+import { INote } from '../../../../../Interfaces';
+import { SnackBarService } from '../../../services/snackBar.service';
 
 @Component({
   selector: 'app-note',
-  imports: [
-    NgFor,
-  ],
+  imports: [],
   templateUrl: './note.component.html',
   styleUrl: './note.component.scss'
 })
 export class NoteComponents {
+  @Input() note!: INote;
 
-  notes: INote[] = [];
-
-  constructor(private noteService: NoteService) { }
-
-  ngOnInit() {
-    this.noteService.notes$.subscribe((notes) => {
-      this.notes = notes;
-    });
-  }
-
+  constructor(private noteService: NoteService, private snackBarService: SnackBarService) { }
   deleteNote(id: number) {
     this.noteService.deleteNote(id);
+    this.snackBarService.open('Нотатка успішно видалена!');
   }
 
   editNote(id: number) {

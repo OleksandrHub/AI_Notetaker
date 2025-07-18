@@ -18,3 +18,11 @@ export interface INote {
 export interface INoteWithUserId {
     [key: string]: INote[];
 }
+
+export interface AIResponse {
+    choices: {
+        message: {
+            content: string;
+        };
+    }[];
+}

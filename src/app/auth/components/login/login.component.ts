@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../service/auth.service';
+import { SnackBarService } from '../../../dashboard/services/snackBar.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ import { AuthService } from '../../service/auth.service';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-  constructor(private router: Router, private authService: AuthService) { }
+  constructor(private router: Router, private authService: AuthService, private snackBarService: SnackBarService) { }
 
   errorMessage: string = '';
 
@@ -28,6 +29,7 @@ export class LoginComponent {
       const user = this.authService.users.find((user) => user.login === this.formLogin.value && user.password === this.formPassword.value);
       if (user) {
         this.authService.login(user);
+        this.snackBarService.open('Ви успішно увійшли!');
         this.router.navigate(['/dashboard']);
       } else {
         this.errorMessage = 'Invalid login or password';

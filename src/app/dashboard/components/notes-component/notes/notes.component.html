@@ -2,5 +2,5 @@
     <p class="notes-header__title">Notes</p>
 </header>
 <main class="notes-main">
-    <app-note></app-note>
+    <app-note *ngFor="let note of notes$ | async" [note]="note"></app-note>
 </main>

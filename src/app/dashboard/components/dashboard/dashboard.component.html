@@ -1,3 +1,11 @@
+<header class="dashboard-header">
+    <h1 class="dashboard-header__title">Dashboard</h1>
+    <div class="header-buttons">
+        <button mat-button class="header-buttons__action" (click)="logoutWithAccount()">Logout</button>
+        <button mat-button class="header-buttons__action" (click)="deleteAccount()">Delete Account</button>
+        <button mat-button class="header-buttons__action" (click)="changeTheme()">{{themeButtonText}}</button>
+    </div>
+</header>
 <div class="wrap">
     <app-notes class="notes"></app-notes>
     <app-untitled-notes class="untitled-notes"></app-untitled-notes>
